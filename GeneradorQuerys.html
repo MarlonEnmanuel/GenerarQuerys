@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Querys</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <div class="container">
+            <h1 class="my-4">Generador de Querys</h1>
+            <hr/>
+            <div class="row mt-4 AppInputs">
+                <div class="col Col1">
+                    <table>
+                        <tr>
+                            <td><label for="txtTicket" class="col-form-label"><h6>Ticket</h6></label></td>
+                            <td><input type="text" class="form-control" id="txtTicket"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="txtIniciales" class="col-form-label"><h6>Iniciales</h6></label></td>
+                            <td><input type="text" class="form-control" id="txtIniciales"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="txtDest" class="col-form-label"><h6>Inst. Destino</h6></label></td>
+                            <td><input type="text" class="form-control" id="txtDest"/></td>
+                        </tr>
+                        <tr>
+                            <td><label for="txtOrig" class="col-form-label"><h6>Inst. Origen</h6></label></td>
+                            <td><input type="text" class="form-control" id="txtOrig"/></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col Col2">
+                    <h6>Tablas de Pagos</h6>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="tbl_pag" checked>
+                                <label class="form-check-label" for="tbl_pag">pag</label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="tbl_crt" checked>
+                                <label class="form-check-label" for="tbl_crt">crt</label>
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="mt-2">Tablas de DDJJ</h6>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="tbl_dbt">
+                                <label class="form-check-label" for="tbl_dbt">dbt</label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="tbl_db2">
+                                <label class="form-check-label" for="tbl_db2">db2</label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="tbl_t539tre">
+                                <label class="form-check-label" for="tbl_t539tre">t539tre</label>
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="mt-2">Tablas Migración</h6>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="tbl_t471crb" checked>
+                                <label class="form-check-label" for="tbl_t471crb">t471crb</label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="tbl_doc" checked>
+                                <label class="form-check-label" for="tbl_doc">doc</label>
+                            </div>
+                        </div>
+                    </div>
+                    <h6 class="mt-2">Tablas de Centralizado</h6>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="tbl_t03djcab" checked>
+                                <label class="form-check-label" for="tbl_t03djcab">t03djcab</label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="tbl_t04djdet" checked>
+                                <label class="form-check-label" for="tbl_t04djdet">t04djdet</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col Col3">
+                    <div class="mb-3">
+                        <label for="txtData" class="form-label"><h6>Formularios / Ordenes</h6></label>
+                        <textarea class="form-control" id="txtData" rows="7" placeholder="1662,68451321"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col"></div>
+                <div class="col">
+                    <div class="btn-group" role="group" style="width: 100%;">
+                        <button type="button" class="btn btn-primary" id="btnGenerar">Generar Querys</button>
+                        <button type="button" class="btn btn-warning" id="btnCopiar">Copiar Querys</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="mt-3">
+                        <textarea class="form-control" id="txtQuerys" rows="8" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="mb-3">
+                        <label for="txtArchivos" class="form-label"><b>Archivos Generados</b></label>
+                        <input class="form-control" type="file" id="txtArchivos" multiple accept=".txt" />
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="" class="form-label">&nbsp;</label>
+                    <div class="btn-group" role="group" style="width: 100%;">
+                        <button type="button" class="btn btn-primary" id="btnCargar">Cargar Archivos</button>
+                        <button type="button" class="btn btn-warning" id="btnCopiar2">Copiar / Descargar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="mt-3">
+                        <textarea class="form-control" id="txtOrdenado" rows="8" disabled></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery-3.6.0.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/app.js" async></script>
+</body>
+</html>

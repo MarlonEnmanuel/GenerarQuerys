@@ -1,0 +1,22 @@
+.Col1 table {
+    width: 100%;
+}
+.Col1 table tr td {
+    padding-bottom: 1em;
+}
+.Col1 table tr td input {
+    width: 100%;
+}
+body {
+    background-color: #263238;
+}
+label, h1, h2, h5, h6 {
+    color: #eceff1;
+}
+input[type="text"], hr
+, textarea.form-control
+, textarea.form-control:focus
+, textarea.form-control:disabled {
+    font-family: 'Consolas';
+    background-color: #eceff1;
+}
