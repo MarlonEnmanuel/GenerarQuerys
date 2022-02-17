@@ -6,6 +6,7 @@ $('#txtDest').val('s2d_prico');
 
 var inputs = null;
 var tablas = null;
+const BR = '\n';
 
 const ObtenerInputs = () => {
     // obtener inputs
@@ -26,7 +27,7 @@ const ObtenerInputs = () => {
 
     // transformar data
     try {
-        inputs.txtData = inputs.txtData.split('\n')
+        inputs.txtData = inputs.txtData.split(BR)
                                         .map(ln => ln.trim())
                                         .filter(ln => !!ln.trim())
                                         .map(function (ln) {
@@ -61,12 +62,13 @@ const GenTablaDataDest = (db, tb) => GenTablaData(db, inputs.txtDest, tb, '_dest
 const GenTablaDataOrig = (db, tb) => GenTablaData(db, inputs.txtOrig, tb, '_orig');
 
 const GenerarTablas = () => {
+
     // tablas y parametros
     tablas = {
         // descentralizadas
         pag : {
             check: $('#tbl_pag').is(':checked'),
-            query: (tmp, tbl, frm, ord) => `INSERT INTO ${tmp} SELECT * FROM ${tbl} WHERE pag_formul = ${frm} AND pag_ndocpa = ${ord};`,
+            query: (tbl, frm, ord) => `SELECT * FROM ${tbl} WHERE pag_formul = ${frm} AND pag_ndocpa = ${ord};`,
             dest: GenTablaDataDest('sirat','pag'),
             orig: GenTablaDataOrig('sirat','pag'),
             cabeceras: 'pag_numrec|pag_formul|pag_ndocpa|pag_codfor|pag_numdoc|pag_numruc|pag_fecpag|pag_perpag|pag_semana|pag_numcaj|pag_turno|pag_banco|pag_agebco|pag_tiptra|pag_resrec|pag_folio|pag_totefe|pag_totche|pag_totdov|pag_indpag|pag_nropag|pag_indban|pag_tipdoc|pag_indcon|pag_indinc|pag_indcom|pag_indmed|pag_indvia|pag_recibe|pag_nabono|pag_userna|pag_fecact|pag_horact',
@@ -75,7 +77,7 @@ const GenerarTablas = () => {
         },
         crt : {
             check: $('#tbl_crt').is(':checked'),
-            query: (tmp, tbl, frm, ord) => `INSERT INTO ${tmp} SELECT * FROM ${tbl} WHERE crt_formul = ${frm} AND crt_ndocpa = ${ord} AND crt_indpag IN (1,5) ORDER BY crt_fecpag;`,
+            query: (tbl, frm, ord) => `SELECT * FROM ${tbl} WHERE crt_formul = ${frm} AND crt_ndocpa = ${ord} AND crt_indpag IN (1,5) ORDER BY crt_fecpag;`,
             dest: GenTablaDataDest('sirat','crt'),
             orig: GenTablaDataOrig('sirat','crt'),
             cabeceras: 'crt_depens|crt_formul|crt_ndocpa|crt_numrec|crt_forpag|crt_numche|crt_numruc|crt_perpag|crt_semana|crt_codtri|crt_tiptra|crt_sispag|crt_codfor|crt_numdoc|crt_fecpag|crt_indban|crt_fecacr|crt_imptri|crt_impint|crt_indpag|crt_indaju|crt_forori|crt_docori|crt_indimp|crt_motnim|crt_estado|crt_impcap',
@@ -84,7 +86,7 @@ const GenerarTablas = () => {
         },
         dbt : {
             check: $('#tbl_dbt').is(':checked'),
-            query: (tmp, tbl, frm, ord) => `INSERT INTO ${tmp} SELECT * FROM ${tbl} WHERE dbt_formul = ${frm} AND dbt_numdoc = '${ord}';`,
+            query: (tbl, frm, ord) => `SELECT * FROM ${tbl} WHERE dbt_formul = ${frm} AND dbt_numdoc = '${ord}';`,
             dest: GenTablaDataDest('sirat','dbt'),
             cabeceras: 'dbt_depens|dbt_numruc|dbt_perpag|dbt_semana|dbt_codtri|dbt_tiptra|dbt_formul|dbt_numdoc|dbt_docrec|dbt_nrorec|dbt_import|dbt_imppag|dbt_intpag|dbt_intacu|dbt_impext|dbt_deuori|dbt_fecdoc|dbt_fecact|dbt_numres|dbt_ultpag|dbt_indrec|dbt_sitdeu|dbt_indaju|dbt_paganc|dbt_fecapi',
             iform: 6,
@@ -92,7 +94,7 @@ const GenerarTablas = () => {
         },
         db2 : {
             check: $('#tbl_db2').is(':checked'),
-            query: (tmp, tbl, frm, ord) => `INSERT INTO ${tmp} SELECT * FROM ${tbl} WHERE db2_formul = ${frm} AND db2_numdoc = '${ord}';`,
+            query: (tbl, frm, ord) => `SELECT * FROM ${tbl} WHERE db2_formul = ${frm} AND db2_numdoc = '${ord}';`,
             dest: GenTablaDataDest('sirat','db2'),
             cabeceras: 'db2_numruc|db2_perpag|db2_semana|db2_codtri|db2_tiptra|db2_formul|db2_numdoc|db2_basimp|db2_basmin|db2_imptri|db2_impdec|db2_impdet|db2_otrodb|db2_intdec|db2_impcal|db2_impdca|db2_intcal|db2_sacrad|db2_export|db2_venogr|db2_inddbi|db2_inddsf|db2_cremes|db2_creant|db2_transf|db2_compen|db2_pagcta|db2_tasa|db2_otrocr|db2_adqbrg|db2_adqbrs|db2_reintm|db2_salfim|db2_sipdec|db2_sipdet|db2_rubro|db2_ciiu|db2_forori',
             iform: 5,
@@ -100,7 +102,7 @@ const GenerarTablas = () => {
         },
         t539tre : {
             check: $('#tbl_t539tre').is(':checked'),
-            query: (tmp, tbl, frm, ord) => `INSERT INTO ${tmp} SELECT * FROM ${tbl} WHERE tre_codfor = ${frm} AND tre_numdoc = ${ord};`,
+            query: (tbl, frm, ord) => `SELECT * FROM ${tbl} WHERE tre_codfor = ${frm} AND tre_numdoc = ${ord};`,
             dest: GenTablaDataDest('sirat','t539tre'),
             cabeceras: 'tre_codfor|tre_numdoc|tre_codtri|tre_numruc|tre_perpag|tre_semana|tre_fecdoc|tre_nrorec|tre_impori|tre_imprec|tre_forori|tre_docori|tre_forant|tre_docant|tre_indrec|tre_estado|tre_fecver|tre_origen|tre_tipver|tre_indenv|tre_fecenv|tre_induci',
             iform: 0,
@@ -109,7 +111,7 @@ const GenerarTablas = () => {
         // centralizadas
         t471crb : {
             check: $('#tbl_t471crb').is(':checked'),
-            query: (tmp, tbl, frm, ord) => `INSERT INTO ${tmp} SELECT * FROM ${tbl} WHERE t471_formulario = '${frm.toString().padStart(4,'0')}' AND t471_norden = ${ord};`,
+            query: (tbl, frm, ord) => `SELECT * FROM ${tbl} WHERE t471_formulario = '${frm.toString().padStart(4,'0')}' AND t471_norden = ${ord};`,
             dest: GenTablaDataDest('sirat','t471crb'),
             cabeceras: 't471_nabono|t471_nresumen|t471_formulario|t471_norden|t471_lltt_ruc|t471_periodo|t471_semana|t471_codtri|t471_f_presenta|t471_folio|t471_rechazado|t471_indfte|t471_indpre|t471_sitdoc|t471_coderr|t471_secuencia|t471_userna|t471_fecact',
             iform: 2,
@@ -117,8 +119,9 @@ const GenerarTablas = () => {
         },
         doc : {
             check: $('#tbl_doc').is(':checked'),
-            query: (tmp, tbl, frm, ord) => `INSERT INTO ${tmp} SELECT * FROM ${tbl} WHERE doc_formul = ${frm} AND doc_numdoc = ${ord};`,
+            query: (tbl, frm, ord) => `SELECT * FROM ${tbl} WHERE doc_formul = ${frm} AND doc_numdoc = ${ord};`,
             dest: GenTablaDataDest('sirat','doc'),
+            orig: GenTablaDataOrig('sirat','doc'),
             cabeceras: 'doc_nabono|doc_formul|doc_numdoc|doc_codcas|doc_valdec|doc_valcal|doc_valdet|doc_inderr|doc_indrec',
             iform: 1,
             iorden: 2,
@@ -126,7 +129,7 @@ const GenerarTablas = () => {
         },
         t03djcab : {
             check: $('#tbl_t03djcab').is(':checked'),
-            query: (tmp, tbl, frm, ord) => `INSERT INTO ${tmp} SELECT * FROM ${tbl} WHERE t03formulario = '${frm.toString().padStart(4,'0')}' AND t03norden = ${ord};`,
+            query: (tbl, frm, ord) => `SELECT * FROM ${tbl} WHERE t03formulario = '${frm.toString().padStart(4,'0')}' AND t03norden = ${ord};`,
             dest: GenTablaData('recauda','s0_bancos','t03djcab'),
             cabeceras: 't03nabono|t03nresumen|t03ncaratula|t03codresumen|t03formulario|t03folio|t03norden|t03lltt_ruc|t03indica|t03periodo|t03f_presenta|t03autorden|t03nrocheque|t03bcolibrad|t03rechazado|t03rectifica|t03nrosemana|t03sintotal|t03cnumero|t03ecaptura|t03digit1|t03digit2|t03digit3|t03digit4|t03digit5|t03digit6|t03estado',
             iform: 4,
@@ -134,12 +137,30 @@ const GenerarTablas = () => {
         },
         t04djdet : {
             check: $('#tbl_t04djdet').is(':checked'),
-            query: (tmp, tbl, frm, ord) => `INSERT INTO ${tmp} SELECT ${tbl}.* FROM ${tbl}, tmp_${inputs.txtIniciales}_t03djcab WHERE t04nabono = t03nabono AND t04formulario = '${frm.toString().padStart(4,'0')}' AND t04norden = ${ord};`,
+            query: (tbl, frm, ord) => `SELECT a.* FROM ${tbl} a, ${tbl.substring(0,tbl.indexOf(":"))}:t03djcab b WHERE a.t04nabono = b.t03nabono AND b.t03formulario = '${frm.toString().padStart(4,'0')}' AND b.t03norden = ${ord} AND b.t03norden = a.t04norden;`,
             dest: GenTablaData('recauda','s0_bancos','t04djdet'),
             cabeceras: 't04nabono|t04formulario|t04norden|t04casilla|t04i_valor|t04indcaptura|t04idcasilla|t04estado',
             iform: 1,
             iorden: 2,
             orderby: 3,
+        },
+        t869rei_cab : {
+            check: $('#tbl_t869rei_cab').is(':checked'),
+            query: (tbl, frm, ord) => `SELECT * FROM ${tbl} WHERE cod_for = ${frm} AND num_doc = ${ord};`,
+            dest: GenTablaDataDest('sirat','t869rei_cab'),
+            orig: GenTablaDataOrig('sirat','t869rei_cab'),
+            cabeceras: 'cod_for_rei|num_doc_rei|cod_for|num_doc|num_ruc|fec_doc|ind_aplica|ind_motivo|des_motivo|fec_rei|ind_envio|cod_res_rei|cod_user',
+            iform: 2,
+            iorden: 3,
+        },
+        t870rei_det : {
+            check: $('#tbl_t870rei_det').is(':checked'),
+            query: (tbl, frm, ord) => `SELECT b.* FROM ${tbl.substring(0,tbl.indexOf(":"))}:t869rei_cab a, ${tbl} b WHERE a.cod_for = ${frm} AND a.num_doc = ${ord} AND b.cod_for_rei = a.cod_for_rei AND b.num_doc_rei = a.num_doc_rei;`,
+            dest: GenTablaDataDest('sirat','t870rei_det'),
+            orig: GenTablaDataOrig('sirat','t870rei_det'),
+            cabeceras: 'cod_for_rei|num_doc_rei|cod_sec_rei|ind_aplica|ind_accion|cod_for|num_doc|num_cuo|cod_tri|per_doc|num_sem|tri_inf|tip_tra|mto_tri|mto_int|mto_cap',
+            iform: 5,
+            iorden: 6,
         },
     };
 };
@@ -178,6 +199,8 @@ const GenerarQuerys = () => {
     if (!ObtenerInputs()) return;
     CachearInputs();
     GenerarTablas();
+    
+    var multi = inputs.txtData.length > 1; // flag para saber si es un solo pago o varios pagos
 
     const PushComentario = (txt) => {
         querys['s0_bancos'].push(txt);
@@ -187,26 +210,29 @@ const GenerarQuerys = () => {
 
     // generar querys
     var querys = {};
-    querys[inputs.txtOrig] = [`-- EJECUTAR EN ${inputs.txtOrig} \r\n`];
-    querys[inputs.txtDest] = [`-- EJECUTAR EN ${inputs.txtDest} \r\n`];
-    querys['s0_bancos'] = ['-- EJECUTAR EN s0_bancos \r\n'];
-
-    // temporales
-    PushComentario('-- CREAR TEMPORALES');
-    Object.keys(tablas).forEach(function (tbname){
-        var tabla = tablas[tbname];
-        if (!tabla.check) return;
-
-        const print = (tb) => {
-            querys[tb.inst].push(`SELECT * FROM ${tb.tabla} WHERE 1 = 0 INTO TEMP ${tb.temporal} WITH NO LOG;`);
-        }
-        if (tabla.dest && inputs.txtDest) print(tabla.dest);
-        if (tabla.orig && inputs.txtOrig) print(tabla.orig);
-    });
+    querys[inputs.txtOrig] = [`-- EJECUTAR EN ${inputs.txtOrig}`];
+    querys[inputs.txtDest] = [`-- EJECUTAR EN ${inputs.txtDest}`];
+    querys['s0_bancos'] = [`-- EJECUTAR EN s0_bancos`];
     PushComentario('');
 
+    // temporales
+    if (multi) {
+        PushComentario('-- CREAR TEMPORALES');
+        Object.keys(tablas).forEach(function (tbname){
+            var tabla = tablas[tbname];
+            if (!tabla.check) return;
+
+            const print = (tb) => {
+                querys[tb.inst].push(`SELECT * FROM ${tb.tabla} WHERE 1 = 0 INTO TEMP ${tb.temporal} WITH NO LOG;`);
+            }
+            if (tabla.dest && inputs.txtDest) print(tabla.dest);
+            if (tabla.orig && inputs.txtOrig) print(tabla.orig);
+        });
+        PushComentario('');
+    }
+
     // querys
-    PushComentario('-- EXTRACCION DE DATA');
+    if (multi) PushComentario('-- EXTRACCION DE DATA');
     Object.keys(tablas).forEach(function (tbname){
         var tabla = tablas[tbname];
         if (!tabla.check) return;
@@ -214,34 +240,39 @@ const GenerarQuerys = () => {
         const print = (tb) => {
             querys[tb.inst].push(`-- Tabla ${tbname}`);
             inputs.txtData.forEach(row => {
-                var q = tabla.query(tb.temporal, tb.tabla, row.form, row.orden);
+                var q = "";
+                q += multi ? `INSERT INTO ${tb.temporal} ` : `UNLOAD TO '${tb.file}' ${BR}`;
+                q += tabla.query(tb.tabla, row.form, row.orden);
                 querys[tb.inst].push(q);
+                if (!multi) querys[tb.inst].push('');
             });
         }
         if (tabla.dest && inputs.txtDest) print(tabla.dest);
         if (tabla.orig && inputs.txtOrig) print(tabla.orig);
     });
-    PushComentario('');
+    if (multi) PushComentario('');
 
     // unload y drop
-    PushComentario('-- DESCARGAR Y ELIMINAR TEMPORALES');
-    Object.keys(tablas).forEach(function (key){
-        var tabla = tablas[key];
-        if (!tabla.check) return;
+    if (multi) {
+        PushComentario('-- DESCARGAR Y ELIMINAR TEMPORALES');
+        Object.keys(tablas).forEach(function (key){
+            var tabla = tablas[key];
+            if (!tabla.check) return;
 
-        const print = (tb) => {
-            querys[tb.inst].push(`UNLOAD TO '${tb.file}' SELECT * FROM ${tb.temporal}; DROP TABLE IF EXISTS ${tb.temporal};`);
-        }
-        if (tabla.dest && inputs.txtDest) print(tabla.dest);
-        if (tabla.orig && inputs.txtOrig) print(tabla.orig);
-    });
-    PushComentario('');
+            const print = (tb) => {
+                querys[tb.inst].push(`UNLOAD TO '${tb.file}' SELECT * FROM ${tb.temporal}; DROP TABLE IF EXISTS ${tb.temporal};`);
+            }
+            if (tabla.dest && inputs.txtDest) print(tabla.dest);
+            if (tabla.orig && inputs.txtOrig) print(tabla.orig);
+        });
+        PushComentario('');
+    }
     
     // imprimir
     $('#txtQuerys').val(
-        querys[inputs.txtDest].join('\r\n') + '\r\n\r\n' +
-        querys[inputs.txtOrig].join('\r\n') + '\r\n\r\n' +
-        querys['s0_bancos'].join('\r\n')
+        querys[inputs.txtDest].join(BR) + BR + BR +
+        querys[inputs.txtOrig].join(BR) + BR + BR +
+        querys['s0_bancos'].join(BR)
     );
 }
 
@@ -271,7 +302,7 @@ const CargarArchivos = async () => {
         }
     });
     if (faltan.length > 0) {
-        alert ('Faltan los archivos: \n' + faltan.join('\n'));
+        alert (`Faltan los archivos: ${BR}` + faltan.join(BR));
         return;
     }
 
@@ -283,7 +314,7 @@ const CargarArchivos = async () => {
 
         const extraer = async (tb) => {
             var txt = await Array.from(files).filter(f => f.name == tb.file)[0].text();
-            contenido[key+tb.inst] = txt.split('\r\n').map(row => row.split('|').map(col => col.trim()));
+            contenido[key+tb.inst] = txt.split(BR).map(row => row.split('|').map(col => col.trim()));
             if ("orderby" in tabla)
                 contenido[key+tb.inst] = contenido[key+tb.inst].sort((a,b) => parseInt(a[tabla.orderby]) - parseInt(b[tabla.orderby]));
         };
@@ -296,27 +327,27 @@ const CargarArchivos = async () => {
                     .map(cols => [`<td class="right">${relleno}</td>`].concat(cols))
                     .map(cols => {cols.pop(); return cols;})
                     .map(cols => `<tr>${cols.join('')}</tr>`)
-                    .join('\n');
+                    .join(BR);
     }
     function genHtmlCabecera (data) {
         var html = data.split('|')
                         .map(col => `<td class="tdc">${col}</td>`)
                         .join('');
-        return `<tr><td></td>${html}</tr>\n`;
+        return `<tr><td></td>${html}</tr>${BR}`;
     }
 
     // leer en orden e imprimir
     var text = "";
     inputs.txtData.forEach(row => {
 
-        text += `<tr class="fondo"><td class="bold" colspan="10">Nro de Orden ${row.orden} / Formulario ${row.form}</td></tr>\n`;
-        text += '<tr><td></td></tr>\n';
+        text += `<tr class="fondo"><td class="bold" colspan="10">Nro de Orden ${row.orden} / Formulario ${row.form}</td></tr>${BR}`;
+        text += `<tr><td></td></tr>${BR}`;
         
         Object.keys(tablas).forEach(tbName => {
             var tb = tablas[tbName];
             if (!tb.check) return;
 
-            text += `<tr><td class="bold">Tabla ${tbName}</td></tr>\n`;
+            text += `<tr><td class="bold">Tabla ${tbName}</td></tr>${BR}`;
             
             if (tb.orig && inputs.txtOrig) {
 
@@ -344,9 +375,9 @@ const CargarArchivos = async () => {
                     text += `<tr><td></td><td colspan="${tb.cabeceras.split('|').length}">Sin registros</td></tr>`;
                 }
             }
-            text += '<tr><td></td></tr>\n';
+            text += `<tr><td></td></tr>${BR}`;
         });
-        text += '<tr><td></td></tr>\n';
+        text += `<tr><td></td></tr>${BR}`;
     });
 
     text = `<html>
