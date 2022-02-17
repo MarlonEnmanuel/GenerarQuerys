@@ -1,4 +1,4 @@
 # GenerarQuerys
 ## Automatizador de Querys para Mesa 16 Reca
 
-modificacion de tavo
+modificacion de tavo XD
