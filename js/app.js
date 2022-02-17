@@ -23,23 +23,23 @@ const ObtenerInputs = () => {
     if (!inputs.txtIniciales) { alert('Ingresa Iniciales'); return; }
     if (!inputs.txtTicket) { alert('Ingresa Ticket'); return; }
     if (!inputs.txtData) { alert('Ingresa Formularios/Ordenes'); return; }
-    
+
     // transformar data
     try {
         inputs.txtData = inputs.txtData.split('\n')
-        .map(ln => ln.trim())
-        .filter(ln => !!ln.trim())
-        .map(function (ln) {
-            var a = ln.split(',')[0].trim();
-            var b = ln.split(',')[1].trim();
-            if (!a||!b) throw "error";
-            if (a.length>4) throw "error";
-            a = parseInt(a);
-            b = parseInt(b);
-            if (isNaN(a)||isNaN(b)) throw "error";
-            if (a<0||b<0) throw "error";
-            return  { form:  a, orden: b };
-        });
+                                        .map(ln => ln.trim())
+                                        .filter(ln => !!ln.trim())
+                                        .map(function (ln) {
+                                            var a = ln.split(',')[0].trim();
+                                            var b = ln.split(',')[1].trim();
+                                            if (!a||!b) throw "error";
+                                            if (a.length>4) throw "error";
+                                            a = parseInt(a);
+                                            b = parseInt(b);
+                                            if (isNaN(a)||isNaN(b)) throw "error";
+                                            if (a<0||b<0) throw "error";
+                                            return  { form:  a, orden: b };
+                                        });
     } catch (ex) {
         alert('Formularios/Ordenes con error'); 
         return false;
@@ -48,16 +48,17 @@ const ObtenerInputs = () => {
 }
 
 const GenTablaData = (db, inst, tb, sub = '') => {
-    var f = inst === "s2d_prico" || inst === "s2c_mepeco";
+    // var f = inst === "s2d_prico" || inst === "s2c_mepeco" || inst === "s1_prico";
+    var f = false;
     return {
-        inst: inst,
+        inst: inst, 
         tabla: f ? `${db}:${tb}` : `${db}@${inst}:${tb}`,
         temporal: `tmp_${inputs.txtIniciales}_${tb}${sub}`,
         file: `tbl_${inputs.txtIniciales}_${inputs.txtTicket}_${tb}${sub}.txt`,
     };
 }
 const GenTablaDataDest = (db, tb) => GenTablaData(db, inputs.txtDest, tb, '_dest');
-const GenTablaDataOrig = (db, tb) => GenTablaData(db, inputs.txtOrig , tb, '_orig');
+const GenTablaDataOrig = (db, tb) => GenTablaData(db, inputs.txtOrig, tb, '_orig');
 
 const GenerarTablas = () => {
     // tablas y parametros
